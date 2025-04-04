@@ -12,6 +12,11 @@ def main():
     game_clock = pygame.time.Clock()
     dt = 0
 
+    updatable_group = pygame.sprite.Group()
+    drawable_group = pygame.sprite.Group()
+
+    Player.containers = (updatable_group, drawable_group)
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     while True:
@@ -21,7 +26,12 @@ def main():
         screen.fill(
             "black"
         )
-        player.draw(screen)
+
+        updatable_group.update(dt)
+
+        for drawable in drawable_group:
+            drawable.draw(screen)
+
         pygame.display.flip()
 
         #End of Gameloop 
